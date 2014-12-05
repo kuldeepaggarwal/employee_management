@@ -1,0 +1,20 @@
+default_configurations: &default_configurations
+  adapter:  postgresql
+  encoding: unicode
+  username:
+  password:
+  pool: 5
+  host: localhost
+  timeout: 5000
+
+development:
+  <<: *default_configurations
+  database: employee_management_development
+
+test:
+  <<: *default_configurations
+  database: employee_management_test
+
+production:
+  <<: *default_configurations
+  database: employee_management_production
