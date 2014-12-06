@@ -2,3 +2,5 @@
 *.yml
 *.log
 /tmp
+.rvmrc
+.ruby-version

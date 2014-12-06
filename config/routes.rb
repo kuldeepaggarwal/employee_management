@@ -1,3 +1,4 @@
 EmployeeManagement::Application.routes.draw do
-  # root :to => 'welcome#index'
+  resources :employees, except: :show
+  root to: 'employees#index'
 end

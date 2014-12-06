@@ -1,0 +1,57 @@
+<% content_for :title, 'List of Employees' %>
+<%= form_tag nil, class: 'form-horizontal', method: :get do %>
+  <div class="control-group">
+    <%= label_tag :q, 'Enter Text', class: 'control-label' %>
+    <div class="controls">
+      <%= text_field_tag :q, params[:q], placeholder: 'Enter Text' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= label_tag :group_by, 'Group By', class: 'control-label' %>
+    <div class="controls">
+      <%= select_tag :group_by, options_for_select(employee_group_select_options, params[:group_by]), { prompt: 'Select A Field' } %>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <%= submit_tag 'Search', class: 'btn' %>
+    </div>
+  </div>
+<% end %>
+
+<%= link_to 'Create A New Employee', :new_employee, class: 'btn btn-inverse' %>
+<table class="table table-hover">
+  <thead>
+    <th><%= sort_link :name %></th>
+    <th width="50px"><%= sort_link :age %></th>
+    <th><%= sort_link :email_id %></th>
+    <th><%= sort_link :location %></th>
+    <th><%= sort_link :department %></th>
+    <th><%= sort_link :designation %></th>
+    <th class="last actions" width="30px"></th>
+  </thead>
+  <tbody>
+    <% @employees.each do |employee| %>
+      <tr>
+        <td><%= employee.name %></td>
+        <td><%= employee.age %></td>
+        <td><%= employee.email_id %></td>
+        <td><%= employee.location %></td>
+        <td><%= employee.department %></td>
+        <td><%= employee.designation %></td>
+        <td>
+          <%= link_to edit_employee_path(employee), title: 'Edit' do
+            content_tag :i, nil, class: 'icon-pencil'
+          end %>
+          <%= link_to employee, class: 'delete', title: 'Delete' do
+            content_tag :i, nil, class: 'icon-trash'
+          end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% content_for :javascripts do %>
+<%= javascript_include_tag 'employees/index' %>
+<% end %>

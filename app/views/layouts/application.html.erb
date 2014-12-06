@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>EmployeeManagement</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+  <head>
+    <title><%= content_for?(:title) ? (yield :title) : 'EmployeeManagement' %></title>
+    <%= stylesheet_link_tag 'application' %>
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tags %>
+    <%= yield :javascripts %>
+  </head>
+  <body>
+    <div class="container">
+      <div class="flash">
+        <% flash.each do |type, message| %>
+          <% if message.present? %>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <div class="alert alert-block alert-<%= type %>" style="text-align:center;">
+              <p><%= message %></p>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <%= yield %>
+    </div>
+  </body>
 </html>

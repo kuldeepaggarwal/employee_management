@@ -11,6 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20141206162720) do
+
+  create_table "employees", :force => true do |t|
+    t.string   "name"
+    t.integer  "age"
+    t.string   "email_id"
+    t.string   "location"
+    t.string   "department"
+    t.string   "designation"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.datetime "deleted_at"
+  end
+
+  add_index "employees", ["age"], :name => "index_employees_on_age"
+  add_index "employees", ["deleted_at"], :name => "index_employees_on_deleted_at"
+  add_index "employees", ["department"], :name => "index_employees_on_department"
+  add_index "employees", ["designation"], :name => "index_employees_on_designation"
+  add_index "employees", ["email_id"], :name => "index_employees_on_email_id"
+  add_index "employees", ["location"], :name => "index_employees_on_location"
+  add_index "employees", ["name"], :name => "index_employees_on_name"
 
 end
