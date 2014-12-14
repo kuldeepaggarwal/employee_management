@@ -20,6 +20,13 @@
 <% end %>
 
 <%= link_to 'Create A New Employee', :new_employee, class: 'btn btn-inverse' %>
+<% if params[:group_by].present? %>
+  <br>
+  <br>
+  <strong>
+    Grouped By: <%= params[:group_by].humanize %>
+  </strong>
+<% end %>
 <table class="table table-hover">
   <thead>
     <th><%= sort_link :name %></th>
@@ -31,7 +38,17 @@
     <th class="last actions" width="30px"></th>
   </thead>
   <tbody>
+    <% last_group_by = nil %>
     <% @employees.each do |employee| %>
+      <% if(params[:group_by].present? && (last_group_by != (last_group_by = employee.public_send(params[:group_by])))) %>
+        <tr>
+          <td colspan="7">
+            <strong>
+              <%= last_group_by %>
+            </strong>
+          </td>
+        </tr>
+      <% end %>
       <tr>
         <td><%= employee.name %></td>
         <td><%= employee.age %></td>

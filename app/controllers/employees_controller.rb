@@ -3,9 +3,9 @@ class EmployeesController < ApplicationController
   before_filter :load_resource, only: [:destroy, :edit, :update]
 
   def index
-    @employees = Employee.sort_order(params[:sort], params[:dir])
-                         .group(params[:group_by])
-                         .search(params[:q])
+    @employees = Employee.search(params[:q])
+                         .grouped_by(params[:group_by])
+                         .sort_order(params[:sort], params[:dir])
   end
 
   def new
